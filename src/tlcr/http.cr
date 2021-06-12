@@ -5,7 +5,7 @@ module Tlcr
     @index_uri : URI
     @base_uri : URI
 
-    def initialize(@index_uri = URI.parse("https://tldr-pages.github.io/assets/index.json"),
+    def initialize(@index_uri = URI.parse("https://tldr.sh/assets/index.json"),
                    @base_uri = URI.parse("https://raw.githubusercontent.com/tldr-pages/tldr"))
     end
 

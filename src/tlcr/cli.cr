@@ -27,7 +27,7 @@ module Tlcr
     def self.parse(argv)
       new.tap do |options|
         parser = OptionParser.new do |parser|
-          parser.banner = "Usage: #{$0} [options] [command]"
+          parser.banner = "Usage: #{ARGV[0]} [options] [command]"
           parser.on("-u", "--update", "Force update (default: cache for #{options.ttl.total_days} days)") { options.ttl = 0.seconds }
           parser.on("-r", "--render", "Render local file (for authors)") { options.local = true }
           parser.on("-d", "--download", "Download the whole TLDR archive") { options.download = true }

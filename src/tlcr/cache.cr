@@ -26,7 +26,7 @@ module Tlcr
     end
 
     private def hit?(keys)
-      File.exists?(filename(keys)) && Time.utc_now - File.stat(filename(keys)).mtime < @ttl
+      File.exists?(filename(keys)) && Time.utc - File.info(filename(keys)).modification_time < @ttl
     end
 
     private def read(keys)

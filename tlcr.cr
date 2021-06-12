@@ -1,6 +1,6 @@
 require "./src/tlcr"
 
-Tlcr::Completion.setup
+# Tlcr::Completion.setup
 
 options = begin
   Tlcr::CLI.parse(ARGV)

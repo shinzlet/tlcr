@@ -10,3 +10,5 @@ dependencies:
   completion:
     github: porras/completion
     branch: crystal-0.19
+  markd:
+    github: icyleaf/markd

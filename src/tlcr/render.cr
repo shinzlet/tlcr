@@ -1,5 +1,5 @@
-require "markdown"
 require "colorize"
+require "markd"
 
 module Tlcr
   class Page
@@ -10,7 +10,8 @@ module Tlcr
 
     def to_s(io)
       io.puts
-      Markdown.parse(@content, Renderer.new(io))
+      doc = Markd::Parser.parse(@content)
+      io << TextRenderer.new.render(doc)
       io.puts
       io.puts
     end
@@ -20,8 +21,6 @@ module Tlcr
   # It's very coupled to the conventions in https://github.com/tldr-pages/tldr/blob/master/CONTRIBUTING.md
   # It renders stuff according to the specific meanings mentioned there and ignores everything else
   class Renderer
-    include Markdown::Renderer
-
     @io : IO
     @modes : Set(Symbol)
     @colors : Set(Symbol)
@@ -138,6 +137,15 @@ module Tlcr
       @modes.each { |m| text = text.mode(m) }
       @colors.each { |c| text = text.fore(c) }
       text
+    end
+  end
+
+  class TextRenderer < Markd::Renderer
+    macro method_missing(call)
+      def {{call.name.id}}(node, entering)
+        @output_io << node.text
+        @output_io << "\n"
+      end
     end
   end
 end

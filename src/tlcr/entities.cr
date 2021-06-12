@@ -2,9 +2,9 @@ require "json"
 
 module Tlcr
   class Index
-    JSON.mapping({
-      commands: Set(Command),
-    })
+    include JSON::Serializable
+
+    property commands : Set(Command)
 
     def available
       @commands.select(&.available?)
@@ -18,10 +18,10 @@ module Tlcr
   end
 
   class Command
-    JSON.mapping({
-      name:     String,
-      platform: Set(String),
-    })
+    include JSON::Serializable
+
+    property name : String
+    property platform : Set(String)
 
     def available?
       @platform.includes?("common") || @platform.includes?(Tlcr.platform)
